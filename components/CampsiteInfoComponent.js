@@ -4,6 +4,7 @@ import { Card, Icon, Rating, Input } from 'react-native-elements';
 import {connect} from "react-redux"
 import {baseUrl} from "../shared/baseUrl"
 import {postFavorite, postComment} from "../redux/ActionCreators"
+import * as Animatable from "react-native-animatable"
 
 const mapStateToProps = state => 
 {
@@ -25,6 +26,7 @@ function RenderCampsite(props) {
 
     if (campsite) {
         return (
+            <Animatable.View animation="fadeInDown" duration ={2000} delay={1000}>
             <Card
                 featuredTitle={campsite.name}
                 image={{uri: baseUrl + campsite.image}}
@@ -51,6 +53,7 @@ function RenderCampsite(props) {
                 />
                 </View>
             </Card>
+            </Animatable.View>
         );
     }
     return <View />;
@@ -70,7 +73,7 @@ function RenderComments({comments})
   };
 
    return(
-
+        <Animatable.View animation="fadeInUp" duration ={2000} delay={1000}>
         <Card title="Comments" >
             <FlatList
                 data={comments}
@@ -78,6 +81,7 @@ function RenderComments({comments})
                 keyExtractor={item => item.id.toString()}
             />
         </Card>
+        </Animatable.View>
    )
 }
 
