@@ -24,10 +24,17 @@ function RenderCampsite(props) {
 
     const {campsite}= props;
 
+    const view= React.createRef()
+
     const recognizeDrag = ({dx}) => (dx < -200)? true: false;
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true, 
+        onPanResponderGrant: ()=>{
+            view.current.rubberBand(1000)
+            //.then promise handler not strictly required
+            .then(endState => console.log(endState.finished? "finished" : "canceled" ))
+        }, 
         onPanResponderEnd: (e, gestureState) => {
             console.log("pan responder end", gestureState)
             if(recognizeDrag(gestureState))
@@ -60,6 +67,7 @@ function RenderCampsite(props) {
             duration ={2000} 
             delay={1000}
             {...panResponder.panHandlers}
+            ref= {view}
             >
             <Card
                 featuredTitle={campsite.name}
