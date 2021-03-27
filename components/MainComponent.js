@@ -349,13 +349,10 @@ class Main extends Component {
 
     showNetInfo = async () =>
     {
-    
-        // rewrite this with async await for workshop
         const connectionInfo = await NetInfo.fetch()
             (Platform.OS==="ios")
                 ?Alert.alert("Initial Network Connectivity Type:", connectionInfo.type)
                 :ToastAndroid.show("Initial Network Connectivity Type: " + connectionInfo.type, ToastAndroid.LONG)
-        
     }
 
     componentWillUnmount()
